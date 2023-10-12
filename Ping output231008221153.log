@@ -1,0 +1,13 @@
+Kushagra : 2023-10-08 22:11:53.253871 i Reading the text file
+Kushagra : 2023-10-08 22:11:53.253871 i conversion of string to list
+Kushagra i 2023-10-08 22:11:53.296234 : Client 192.168.1.1 is UP
+Kushagra i 2023-10-08 22:11:53.319789 : Client 192.168.1.2 is UP
+Kushagra i 2023-10-08 22:11:53.342900 : Client 192.168.1.3 is UP
+Kushagra i 2023-10-08 22:11:53.364787 : Client 192.168.1.10 is UP
+Kushagra i 2023-10-08 22:11:53.387283 : Client 192.168.1.17 is UP
+
+192.168.1.1
+192.168.1.2
+192.168.1.3
+192.168.1.10
+192.168.1.17

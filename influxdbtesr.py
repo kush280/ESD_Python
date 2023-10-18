@@ -1,6 +1,8 @@
-from influxdb import InfluxDBClient
-from datetime import datetime
-client = InfluxDBClient('localhost', 8086, 'admin', 'Kush2809#', 'ESD_python')
-client.create_database('ESD_python')
-client.get_list_database()
-client.switch_database('ESD_python')
+import os
+from selenium import webdriver
+import time
+os.environ['webdriver.chrome.driver'] = '/path/to/chromedriver'
+browser = webdriver.Chrome()
+browser.get('localhost:8086')
+time.sleep(5)
+browser.quit()

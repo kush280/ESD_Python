@@ -1,57 +1,77 @@
-#
-# b = int(input("Enter 2 for study"))
-# c = int(input("Enter 3 for quit"))
+import psutil
+import time
+import datetime
 
-print("What do you want to do \n1. Enter 1 for play game\n2. Enter 2 for study\n3. Enter 3 for quit")
-d = int(input("Enter your choice\n"))
-while d == 1 or d == 2 or d == 3:
-    if d == 1:
-        print("I am happy to play with you do you like Tic Tak Toe? (If yes press 1)")
-        a = int(input())
-        if a == 1:
-            print("TIC")
-            break
-        elif a > 1:
-            print("not valid")
-            break
-    elif d == 2:
-        print("I am happy to Study with you do you need Calculator? (If yes press 1)")
-        a = int(input())
-        if a == 1:
-            print("Calculator")
-            break
-        elif a > 1:
-            print("not valid")
-            break
-    elif d == 3:
-        print("Thank you")
-        break
 
-if d > 3:
-    print("Try with valid input")
-    print("What do you want to do \n1. Enter 1 for play game\n2. Enter 2 for study\n3. Enter 3 for quit")
-    d = int(input("Enter your choice\n"))
-    while d == 1 or d == 2 or d == 3:
-        if d == 1:
-            print("I am happy to play with you do you like Tic Tak Toe? (If yes press 1)")
-            a = int(input())
-            if a == 1:
-                print("TIC")
-                break
-            elif a > 1:
-                print("not valid")
-                break
-        elif d == 2:
-            print("I am happy to Study with you do you need Calculator? (If yes press 1)")
-            a = int(input())
-            if a == 1:
-                print("Calculator")
-                break
-            elif a > 1:
-                print("not valid")
-                break
-        elif d == 3:
-            print("Thank you")
-            break
-    if d > 3:
-        print("Fuck off and run program again")
+def get_cpu_usage():
+    """Returns the CPU usage in percentage."""
+    return psutil.cpu_percent()
+
+
+def get_gpu_usage():
+    """Returns the GPU usage in percentage."""
+    if psutil.GPUs:
+        gpu = psutil.GPUs[0]
+        return gpu.percent()
+    else:
+        return 0
+
+
+def get_network_usage():
+    """Returns the network usage in bytes per second."""
+    return psutil.net_io_counters().bytes_sent + psutil.net_io_counters().bytes_recv
+
+
+def get_cpu_temperature():
+    """Returns the CPU temperature in degrees Celsius."""
+    try:
+        return psutil.sensors_temperatures()['coretemp'][0].current
+    except:
+        return 0
+
+
+def get_gpu_temperature():
+    """Returns the GPU temperature in degrees Celsius."""
+    if psutil.GPUs:
+        gpu = psutil.GPUs[0]
+        return gpu.temperature
+    else:
+        return 0
+
+
+def get_ram_utilization():
+    """Returns the RAM utilization in percentage."""
+    return psutil.virtual_memory().percent
+
+
+def get_storage_utilization():
+    """Returns the storage utilization in percentage."""
+    return psutil.disk_usage('/').percent
+
+
+def log_system_usage():
+    """Logs the system usage to a file."""
+    timestamp = datetime.datetime.now()
+    log_file = open('system_usage.log', 'a')
+    log_file.write(
+        '{timestamp},{cpu_usage},{network_usage},{cpu_temperature},{ram_utilization},{storage_utilization}\n'.format(
+            timestamp=timestamp,
+            cpu_usage=get_cpu_usage(),
+            # Removed the gpu_usage argument
+            network_usage=get_network_usage(),
+            cpu_temperature=get_cpu_temperature(),
+            ram_utilization=get_ram_utilization(),
+            storage_utilization=get_storage_utilization()
+        ))
+    log_file.close()
+
+
+def main():
+    """Main function."""
+    while True:
+        log_system_usage()
+        time.sleep(1)
+
+
+if __name__ == '__main__':
+    main()

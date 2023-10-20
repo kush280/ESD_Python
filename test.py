@@ -1,6 +1,7 @@
-import psutil
-import time
 import datetime
+import time
+# import gputil
+import psutil
 
 
 def get_cpu_usage():
@@ -10,11 +11,8 @@ def get_cpu_usage():
 
 def get_gpu_usage():
     """Returns the GPU usage in percentage."""
-    if psutil.GPUs:
-        gpu = psutil.GPUs[0]
-        return gpu.percent()
-    else:
-        return 0
+    gpu = gputil.get_gpu(0)
+    return gpu.load * 100
 
 
 def get_network_usage():
@@ -57,7 +55,7 @@ def log_system_usage():
         '{timestamp},{cpu_usage},{network_usage},{cpu_temperature},{ram_utilization},{storage_utilization}\n'.format(
             timestamp=timestamp,
             cpu_usage=get_cpu_usage(),
-            # Removed the gpu_usage argument
+            # gpu_usage=get_gpu_usage(),
             network_usage=get_network_usage(),
             cpu_temperature=get_cpu_temperature(),
             ram_utilization=get_ram_utilization(),

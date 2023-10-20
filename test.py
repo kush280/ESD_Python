@@ -2,56 +2,37 @@
 # b = int(input("Enter 2 for study"))
 # c = int(input("Enter 3 for quit"))
 
-print("What do you want to do \n1. Enter 1 for play game\n2. Enter 2 for study\n3. Enter 3 for quit")
-d = int(input("Enter your choice\n"))
-while d == 1 or d == 2 or d == 3:
-    if d == 1:
-        print("I am happy to play with you do you like Tic Tak Toe? (If yes press 1)")
-        a = int(input())
-        if a == 1:
-            print("TIC")
-            break
-        elif a > 1:
-            print("not valid")
-            break
-    elif d == 2:
-        print("I am happy to Study with you do you need Calculator? (If yes press 1)")
-        a = int(input())
-        if a == 1:
-            print("Calculator")
-            break
-        elif a > 1:
-            print("not valid")
-            break
-    elif d == 3:
-        print("Thank you")
-        break
+print("What do you want to do?")
+print("1. Enter 1 to play a game")
+print("2. Enter 2 to study")
+print("3. Enter 3 to quit")
 
-if d > 3:
-    print("Try with valid input")
-    print("What do you want to do \n1. Enter 1 for play game\n2. Enter 2 for study\n3. Enter 3 for quit")
-    d = int(input("Enter your choice\n"))
-    while d == 1 or d == 2 or d == 3:
-        if d == 1:
-            print("I am happy to play with you do you like Tic Tak Toe? (If yes press 1)")
-            a = int(input())
-            if a == 1:
-                print("TIC")
-                break
-            elif a > 1:
-                print("not valid")
-                break
-        elif d == 2:
-            print("I am happy to Study with you do you need Calculator? (If yes press 1)")
-            a = int(input())
-            if a == 1:
-                print("Calculator")
-                break
-            elif a > 1:
-                print("not valid")
-                break
-        elif d == 3:
-            print("Thank you")
+while True:
+    d = int(input("Enter your choice: "))
+    
+    if d == 1:
+        print("I'm happy to play with you. Do you like Tic Tac Toe? (If yes, press 1)")
+        a = int(input())
+        if a == 1:
+            print("Let's play Tic Tac Toe!")
             break
-    if d > 3:
-        print("Fuck off and run program again")
+        else:
+            print("Not a valid choice. Please enter 1 to play or another choice to go back to the main menu.")
+    
+    elif d == 2:
+        print("I'm happy to study with you. Do you need a calculator? (If yes, press 1)")
+        a = int(input())
+        if a == 1:
+            print("Opening the calculator...")
+            break
+        else:
+            print("Not a valid choice. Please enter 1 for the calculator or another choice to go back to the main menu.")
+    
+    elif d == 3:
+        print("Thank you for using this program. Goodbye!")
+        break
+    
+    else:
+        print("Invalid choice. Please enter 1, 2, or 3.")
+
+print("Exiting the program.")

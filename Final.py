@@ -3,6 +3,9 @@ import psutil
 import datetime
 import GPUtil
 
+last_upload_usage = psutil.net_io_counters().bytes_sent
+last_download_usage = psutil.net_io_counters().bytes_recv
+last_time = time.time()
 
 def display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage, gpu_usage, gpu_temperature, bars=50):
     global last_upload_usage, last_download_usage, last_time
@@ -38,11 +41,7 @@ def display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage
             f"{download_speed:.2f}Mb/s, {disk_usage:.2f}%, {gpu_usage:.2f}%, {gpu_temperature:.2f}°C\n")
 
 
-if __name__ == "__main__":
-    last_upload_usage = psutil.net_io_counters().bytes_sent
-    last_download_usage = psutil.net_io_counters().bytes_recv
-    last_time = time.time()
-
+if __name__ == "__main":
     while True:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cpu_usage = psutil.cpu_percent()

@@ -21,18 +21,19 @@ with open("Ping_output_" + time + ".log", 'w') as outfile:
             try:
                 res = subprocess.Popen(["ping", "-n", "1", i], stdout=subprocess.PIPE, shell=True)
                 res.communicate()
-            except subprocess.CalledProcessError as ff:
-                print(hostname, ":", datetime.datetime.now(), ":", ff)
-            except Exception as e:
-                print(hostname, ":", datetime.datetime.now(), ":", "Error:", e)
 
-            if "unreachable" in res.stdout.decode():
-                print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
-            elif "expired" in res.stdout.decode():
-                print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
-            elif "timed out" in res.stdout.decode():
-                print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
-            else:
-                print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is UP")
+                if "unreachable" in res.stdout.decode():
+                    print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
+                elif "expired" in res.stdout.decode():
+                    print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
+                elif "timed out" in res.stdout.decode():
+                    print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is Down")
+                else:
+                    print(hostname, ":", datetime.datetime.now(), ":", "Client", i, "is UP")
+
+            except subprocess.CalledProcessError as ff:
+                print(hostname, ":", datetime.datetime now(), ":", ff)
+            except Exception as e:
+                print(hostname, ":", datetime.now(), ":", "Error:", e)
 
     sys.stdout = original_stdout  # Reset sys.stdout to the original value

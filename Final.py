@@ -3,10 +3,6 @@ import psutil
 import datetime
 import GPUtil
 
-last_upload_usage = psutil.net_io_counters().bytes_sent
-last_download_usage = psutil.net_io_counters().bytes_recv
-last_time = time.time()
-
 def display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage, gpu_usage, gpu_temperature, bars=50):
     global last_upload_usage, last_download_usage, last_time
     cpu_percent = (cpu_usage / 100.0)
@@ -27,6 +23,8 @@ def display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage
     gpu_usage_percent = (gpu_usage / 100.0)
     gpu_usage_bar = "█" * int(gpu_usage_percent * bars) + '-' * (bars - int(gpu_usage_percent * bars))
 
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     print(f"\rcpu usg: |{cpu_bar}| {cpu_usage:.2f}%  ", end="")
     print(f"mem usg: |{mem_bar}| {mem_usage:.2f}%  ", end="")
     print(f"upld spd: {upload_speed:.2f}Mb/s  ", end="")
@@ -40,10 +38,12 @@ def display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage
             f"{timestamp}, {cpu_usage:.2f}%, {mem_usage:.2f}%, {upload_speed:.2f}Mb/s, "
             f"{download_speed:.2f}Mb/s, {disk_usage:.2f}%, {gpu_usage:.2f}%, {gpu_temperature:.2f}°C\n")
 
-
 if __name__ == "__main":
+    last_upload_usage = psutil.net_io_counters().bytes_sent
+    last_download_usage = psutil.net_io_counters().bytes_recv
+    last_time = time.time()
+    
     while True:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cpu_usage = psutil.cpu_percent()
         mem_usage = psutil.virtual_memory().percent
         upload_usage = psutil.net_io_counters().bytes_sent
@@ -55,3 +55,4 @@ if __name__ == "__main":
         display_usage(cpu_usage, mem_usage, upload_usage, download_usage, disk_usage, gpu_usage, gpu_temperature, bars=12)
         last_time = time.time()
         time.sleep(1)
+
